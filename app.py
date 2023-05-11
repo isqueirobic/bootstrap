@@ -1,26 +1,30 @@
-from flask import Flask, request, template_rendered
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return template_rendered('index.html')
+    return render_template('index.html')
 
 @app.route('/SobreEad')
 def SobreEad():
-    return template_rendered('SobreEad.html')
+    return render_template('SobreEad.html')
 
 @app.route('/Login')
 def Login():
-    return template_rendered('Login.html')
+    return render_template('Login.html')
 
 @app.route('/Cursos')
 def Cursos():
-    return template_rendered('Cursos.html')
+    return render_template('Cursos.html')
 
 @app.route('/Contato')
 def Contato():
-    return template_rendered('Contato.html')
+    return render_template('Contato.html')
+
+@app.route('/base')
+def base():
+    return render_template('base.html')
 
 
 
