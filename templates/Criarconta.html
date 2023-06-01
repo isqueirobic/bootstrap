@@ -11,15 +11,14 @@
                     <fieldset>
                         <div class="form-group mb-2">
                             {{FormLogin.email.label (class="form-control-label") }}
-                            {{FormLogin.email (class="form-control") }}
                             {% if FormLogin.email.errors %}
-                                {{FormLogin.email (class="form-control is-invalid")}}
+                                {{ FormLogin.email (class="form-control is-invalid")}}
                                 <div class="invalid-feedback">
-                                    {% for error in FormLogin.email.erros %}
-                                        {{erros}}
+                                    {% for error in FormLogin.email.errors %}
+                                    {{error}}
                                     {% endfor %}
                                 </div>
-                                {%else%}
+                                {% else %}
                                 {{FormLogin.email (class="form-control")}}
                             {% endif %}
                         </div>
@@ -28,7 +27,7 @@
                             {{FormLogin.senha (class="form-control")}}
                         </div>
                     </fieldset>
-                    {{FormLogin.submit (class="btn btn-primary mt-2")}}
+                    {{FormLogin.submitLogin (class="btn btn-primary mt-2")}}
               </form>
             </div>
             <div class="col">
@@ -61,7 +60,7 @@
                             {{FormNovoUsuario.cpf (class="form-control")}}
                         </div>
                     </fieldset>
-                    {{FormNovoUsuario.submit (class="btn btn-primary mt-2")}}
+                    {{FormNovoUsuario.submitNovo (class="btn btn-primary mt-2")}}
                 </form>
             </div>
         </div>
