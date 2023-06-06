@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for, flash, redirect
+from flask import Flask, request, render_template, url_for, flash, redirect, session
 from forms import formlogin
 from forms import formNovoUsuario
 import mysql.connector
@@ -13,7 +13,7 @@ mydb = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
     password = 'P@$$w0rd',
-    database = 'senac-ead'
+    database = 'bruh'
 )
 
 @app.route('/')
@@ -43,18 +43,27 @@ def base():
 
 @app.route('/Criarconta', methods=['get', 'post'])
 def Criarconta():
-    senha = request.form.get('senha')
-    email = request.form.get('email')
-    print(email)
+    
     submitNovo = request.form.get('submitNovo')
     submitLogin = request.form.get('submitLogin')
     FormNovoUsuario = formNovoUsuario()
     FormLogin = formlogin()
-    #print(submitNovo, submitLogin)
     if submitLogin == 'Login':
         pass
+        return redirect(url_for('index'))
     if submitNovo == 'Criar conta':
-        curso = mydb.cursor
+        curso = mydb.cursor()
+        nome = FormNovoUsuario.nome.data
+        celular = FormNovoUsuario.celular.data
+        email = FormNovoUsuario.email.data
+        cpf = FormNovoUsuario.cpf.data
+        senha = FormNovoUsuario.senha.data
+        hashsenha = sha256(senha.encode())
+        quer = f'INSERT INTO vinte (nome,celular,email,senha,cfp) VALUES ({nome},{celular},{email},{senha},{cpf})'
+        print(f'{quer}')
+        curso.execute(quer)
+        mydb.commit()
+        flash(f'Cadastro foda {FormNovoUsuario.nome.data}, sucesso')
         return redirect(url_for('index'))
     return render_template('Criarconta.html',  FormLogin=FormLogin, FormNovoUsuario=FormNovoUsuario)
 
